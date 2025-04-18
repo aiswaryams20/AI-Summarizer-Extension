@@ -1,0 +1,130 @@
+/* Default Light Theme */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+    color: black;
+    width: 320px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Dark Mode Theme */
+body.dark {
+    background: #121212;
+    color: white;  /* Ensuring text is visible in dark mode */
+}
+
+/* Main Container */
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.dark .container {
+    background: #1e1e1e;
+    color: white; /* Ensuring text inside container is visible */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Summary Box */
+#summary-box {
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    min-height: 80px;
+    overflow-y: auto;
+    font-size: 14px;
+    text-align: left;
+    transition: all 0.3s ease;
+    color: black; /* Ensuring text is visible in light mode */
+}
+
+.dark #summary-box {
+    background: #2c2c2c;
+    color: white;  /* Fixing text color in dark mode */
+}
+
+/* Button Styling */
+button {
+    background: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #f50057;
+}
+
+/* Footer */
+.footer {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+/* Toggle Switch */
+.theme-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #ff4081;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}

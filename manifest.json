@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "AI Summarizer",
+    "version": "1.0",
+    "description": "Summarize any webpage using AI",
+    "icons": {
+        "128": "icon.png"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "permissions": ["activeTab", "storage", "scripting", "tabs"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
