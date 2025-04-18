@@ -27,7 +27,7 @@ A powerful and minimal **AI-powered Chrome extension** that summarizes any webpa
 
 ---
 
-## 📦 Installation (For Developers)
+## 📦 Installation 
 
 1. Clone this repo  
    ```bash
