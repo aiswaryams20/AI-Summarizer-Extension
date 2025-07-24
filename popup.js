@@ -75,7 +75,7 @@ function extractTextFromPage() {
 
 async function summarizeText(text) {
     const API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn";
-    const API_KEY = "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";
+    const API_KEY = "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";
 
     try {
         const response = await fetch(API_URL, {
