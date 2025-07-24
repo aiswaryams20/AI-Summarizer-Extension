@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeToggle = document.getElementById("theme-toggle");
     const themeLabel = document.getElementById("theme-label");
 
-    // Load Theme from Chrome Storage
     chrome.storage.sync.get("theme", function (data) {
         if (data.theme === "dark") {
             document.documentElement.classList.add("dark");
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Toggle Theme on Click
     themeToggle.addEventListener("change", function () {
         if (themeToggle.checked) {
             document.documentElement.classList.add("dark");
@@ -35,7 +33,6 @@ document.getElementById("summarize-btn").addEventListener("click", async () => {
     try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-        // 🛑 Block pages that cause fetch issues
         if (
             tab.url.startsWith("chrome://") ||
             tab.url.startsWith("edge://") ||
@@ -54,18 +51,18 @@ document.getElementById("summarize-btn").addEventListener("click", async () => {
             },
             async (injectionResults) => {
                 if (!injectionResults || !injectionResults[0]?.result) {
-                    summaryText.innerText = "Error extracting text.";
+                    summaryText.innerText = "⚠️ Error extracting text.";
                     return;
                 }
 
                 const pageText = injectionResults[0].result;
                 const summary = await summarizeText(pageText);
-                summaryText.innerText = summary || "Failed to summarize.";
+                summaryText.innerText = summary || "⚠️ Failed to summarize.";
             }
         );
     } catch (error) {
         console.error("Error:", error);
-        summaryText.innerText = "Error summarizing the text.";
+        summaryText.innerText = "⚠️ Error summarizing the text.";
     }
 });
 
@@ -75,7 +72,7 @@ function extractTextFromPage() {
 
 async function summarizeText(text) {
     const API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn";
-    const API_KEY = "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";
+    const API_KEY = "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";  // replace if expired again
 
     try {
         const response = await fetch(API_URL, {
@@ -88,9 +85,18 @@ async function summarizeText(text) {
         });
 
         const result = await response.json();
-        return result[0]?.summary_text || "No summary generated.";
+
+        if (!Array.isArray(result) || result.length === 0 || !result[0].summary_text) {
+            console.warn("No summary generated or model still loading:", result);
+            if (result.error?.includes("Model")) {
+                return "⚠️ Model is loading. Please try again in 30 seconds.";
+            }
+            return "⚠️ No summary generated.";
+        }
+
+        return result[0].summary_text;
     } catch (error) {
         console.error("API Error:", error);
-        return "Error fetching summary.";
+        return "⚠️ Error fetching summary.";
     }
 }
